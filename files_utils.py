@@ -171,3 +171,25 @@ def append_txt(data: str, file_path: str, encoding: str = "utf-8") -> None:
             f.write(data)
     except Exception as e:
         print(f"Ошибка при добавлении TXT: {e}")
+
+def read_yaml(file_path: str, encoding: str="utf-8") -> dict | None:
+    """Читает данные из YAML файла.
+
+    Args:
+        file_path: Путь к YAML файлу.
+        encoding: Кодировка файла.
+
+    Returns:
+        Словарь с данными из YAML файла или None, если произошла ошибка или YAML не поддерживается.
+    """
+
+    if not have_yaml_support:
+        print("Ошибка: PyYAML не установлен.")
+        return None
+
+    try:
+        with open(file_path, 'r', encoding=encoding) as file:
+             return yaml.safe_load(file)
+    except (FileNotFoundError, yaml.YAMLError) as e:
+        print(f"Ошибка при чтении YAML: {e}")
+        return None        
