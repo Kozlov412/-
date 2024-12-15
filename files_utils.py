@@ -156,3 +156,18 @@ def write_txt(data: str, file_path: str, encoding: str = "utf-8") -> None:
             f.write(data)
     except Exception as e:
         print(f"Ошибка при записи TXT: {e}")
+
+
+def append_txt(data: str, file_path: str, encoding: str = "utf-8") -> None:
+    """Добавляет данные в текстовый файл.
+
+    Args:
+        data: Данные для добавления.
+        file_path: Путь к текстовому файлу.
+        encoding: Кодировка файла.
+    """
+    try:
+        with open(file_path, "a", encoding=encoding) as f:
+            f.write(data)
+    except Exception as e:
+        print(f"Ошибка при добавлении TXT: {e}")
