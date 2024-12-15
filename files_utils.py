@@ -69,3 +69,38 @@ def append_json(data: list[dict], file_path: str, encoding: str = "utf-8") -> No
     except Exception as e:
         print(f"Ошибка при добавлении JSON: {e}")
 
+def read_csv(file_path: str, encoding: str = "utf-8", delimiter: str = ",") -> list[list[str]] | None:
+    """Читает данные из CSV файла.
+
+    Args:
+        file_path: Путь к CSV файлу.
+        encoding: Кодировка файла.
+        delimiter: Разделитель.
+
+    Returns:
+        Список списков со строковыми значениями из CSV файла или None, если произошла ошибка.
+    """
+    try:
+        with open(file_path, "r", encoding=encoding, newline="") as f:
+            reader = csv.reader(f, delimiter=delimiter)
+            return list(reader)
+    except (FileNotFoundError, csv.Error) as e: # csv.Error for other csv reading errors.
+        print(f"Ошибка при чтении CSV: {e}")
+        return None
+
+
+def write_csv(data: list[list[str]], file_path: str, encoding: str = "utf-8", delimiter: str = ",") -> None:
+    """Записывает данные в CSV файл.
+
+    Args:
+        data: Данные для записи (список списков).
+        file_path: Путь к CSV файлу.
+        encoding: Кодировка файла.
+        delimiter: Разделитель.
+    """
+    try:
+        with open(file_path, "w", encoding=encoding, newline="") as f:
+            writer = csv.writer(f, delimiter=delimiter)
+            writer.writerows(data)
+    except Exception as e:
+        print(f"Ошибка при записи CSV: {e}")
