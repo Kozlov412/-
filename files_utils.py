@@ -104,3 +104,55 @@ def write_csv(data: list[list[str]], file_path: str, encoding: str = "utf-8", de
             writer.writerows(data)
     except Exception as e:
         print(f"Ошибка при записи CSV: {e}")
+
+def append_csv(data: list[list[str]], file_path: str, encoding: str = "utf-8", delimiter: str = ",") -> None:
+    """Добавляет данные в CSV файл.
+
+    Args:
+        data: Список списков со строковыми значениями для добавления в CSV.
+        file_path (str): Путь к CSV файлу.
+        encoding (str): Кодировка файла. По умолчанию "utf-8".
+        delimiter (str): Разделитель CSV. По умолчанию ",".
+
+    """
+
+    try:
+        with open(file_path, "a", encoding=encoding, newline="") as f:
+            writer = csv.writer(f, delimiter=delimiter)
+            writer.writerows(data)
+    except Exception as e:
+        print(f"Ошибка при добавлении в CSV: {e}")
+
+
+
+def read_txt(file_path: str, encoding: str = "utf-8") -> str | None:
+    """Читает данные из текстового файла.
+
+    Args:
+        file_path: Путь к текстовому файлу.
+        encoding: Кодировка файла.
+
+    Returns:
+        Строка с данными из файла или None, если произошла ошибка.
+    """
+    try:
+        with open(file_path, "r", encoding=encoding) as f:
+            return f.read()
+    except FileNotFoundError as e:
+        print(f"Ошибка при чтении TXT: {e}")
+        return None
+
+
+def write_txt(data: str, file_path: str, encoding: str = "utf-8") -> None:
+    """Записывает данные в текстовый файл.
+
+    Args:
+        data: Данные для записи (строка).
+        file_path: Путь к текстовому файлу.
+        encoding: Кодировка файла.
+    """
+    try:
+        with open(file_path, "w", encoding=encoding) as f:
+            f.write(data)
+    except Exception as e:
+        print(f"Ошибка при записи TXT: {e}")
